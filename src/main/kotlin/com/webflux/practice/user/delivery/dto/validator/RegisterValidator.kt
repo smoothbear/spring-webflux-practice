@@ -1,6 +1,6 @@
-package com.webflux.practice.user.delievery.dto.validator
+package com.webflux.practice.user.delivery.dto.validator
 
-import com.webflux.practice.user.delievery.dto.request.RegisterRequest
+import com.webflux.practice.user.delivery.dto.request.RegisterRequest
 import org.springframework.validation.Errors
 import org.springframework.validation.ValidationUtils
 import org.springframework.validation.Validator

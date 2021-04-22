@@ -1,7 +1,8 @@
 package com.webflux.practice.global.security
 
-import com.auth0.jwt.JWTVerifier
+import com.webflux.practice.global.security.jwt.CurrentUserAuthenticationBearer
 import com.webflux.practice.global.security.jwt.JwtVerifyHandler
+import com.webflux.practice.global.security.jwt.UserToken
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.Authentication
@@ -17,10 +18,10 @@ class BearerAuthenticationConverter : Function<ServerWebExchange, Mono<Authentic
         val jwtVerifier = JwtVerifyHandler(secretKey)
 
         return Mono.justOrEmpty(t)
-            .flatMap{ _ -> Mono.justOrEmpty(t.request.headers.getFirst(HttpHeaders.AUTHORIZATION))}
-            .filter{ authValue -> authValue.length > 7 }
+            .flatMap { _ -> Mono.justOrEmpty(t.request.headers.getFirst(HttpHeaders.AUTHORIZATION)) }
+            .filter { authValue -> authValue.length > 7 }
             .flatMap { authValue -> Mono.justOrEmpty(authValue.substring(7)) }
-            .flatMap (jwtVerifier::check)
-            .flatMap { C }
+            .flatMap(jwtVerifier::check)
+            .flatMap(CurrentUserAuthenticationBearer::create)
     }
 }

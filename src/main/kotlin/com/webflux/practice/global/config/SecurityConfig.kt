@@ -1,4 +1,4 @@
-package com.webflux.practice.global.security
+package com.webflux.practice.global.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
