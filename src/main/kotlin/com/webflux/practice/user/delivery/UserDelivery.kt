@@ -1,7 +1,7 @@
-package com.webflux.practice.user.delievery
+package com.webflux.practice.user.delivery
 
-import com.webflux.practice.user.delievery.dto.request.RegisterRequest
-import com.webflux.practice.user.delievery.dto.validator.RegisterValidator
+import com.webflux.practice.user.delivery.dto.request.RegisterRequest
+import com.webflux.practice.user.delivery.dto.validator.RegisterValidator
 import com.webflux.practice.user.usecase.register.RegisterUseCase
 import org.springframework.stereotype.Component
 import org.springframework.validation.BeanPropertyBindingResult
@@ -16,16 +16,16 @@ import java.net.URI
 
 @Component
 class UserDelivery(
-    private val usecase: RegisterUseCase,
+    private val registerUsecase: RegisterUseCase,
 ) {
 
     private val validator = RegisterValidator()
 
     suspend fun register(request: ServerRequest): ServerResponse {
-        val requestBody: RegisterRequest = request.awaitBody<RegisterRequest>()
+        val requestBody = request.awaitBody<RegisterRequest>()
         validate(requestBody)
 
-        usecase.register(requestBody)
+        registerUsecase.register(requestBody)
 
         return created(URI("/users"))
             .buildAndAwait()
