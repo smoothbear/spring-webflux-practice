@@ -23,6 +23,7 @@ class SecurityConfig {
 
             .authorizeExchange()
             .pathMatchers("/**").authenticated().and()
+            .authorizeExchange()
 
 
         return http.build()
